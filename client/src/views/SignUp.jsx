@@ -12,7 +12,7 @@ class SignUp extends Component {
     event.preventDefault();
     const { name, email, password } = this.state;
     const user = await signUp({ name, email, password });
-    console.log(user);
+    this.props.onUserChange(user);
   };
 
   handleInputChange = event => {

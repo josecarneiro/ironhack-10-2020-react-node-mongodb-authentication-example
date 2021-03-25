@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://localhost:3000',
+  withCredentials: true
 });
 
 export const signIn = async data => {
@@ -20,4 +21,9 @@ export const signUp = async data => {
 
 export const signOut = async () => {
   await api.post('/authentication/sign-out');
+};
+
+export const verify = async () => {
+  const response = await api.get('/authentication/verify');
+  return response.data.user;
 };

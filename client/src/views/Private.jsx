@@ -4,7 +4,7 @@ class Private extends Component {
   render() {
     return (
       <div>
-        <h1>Private</h1>
+        <h1>Welcome {this.props.user.name}</h1>
       </div>
     );
   }
