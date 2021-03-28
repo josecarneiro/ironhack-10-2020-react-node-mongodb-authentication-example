@@ -5,13 +5,26 @@ class SignUp extends Component {
   state = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    picture: ''
   };
 
   handleFormSubmission = async event => {
     event.preventDefault();
-    const { name, email, password } = this.state;
-    const user = await signUp({ name, email, password });
+    const { name, email, password, picture } = this.state;
+    // If we want to send a file with the request body
+    // we cannot send a simple object
+    // we need to send an object instantiated from FormData
+    const data = new FormData();
+    // data.append('name', name);
+    // data.append('email', email);
+    // data.append('password', password);
+    // data.append('picture', picture);
+    const values = { name, email, password, picture };
+    for (let key in values) {
+      data.append(key, values[key]);
+    }
+    const user = await signUp(data);
     this.props.onUserChange(user);
   };
 
@@ -19,6 +32,14 @@ class SignUp extends Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value
+    });
+  };
+
+  handleFileInputChange = event => {
+    const { name, files } = event.target;
+    const file = files[0];
+    this.setState({
+      [name]: file
     });
   };
 
@@ -45,6 +66,14 @@ class SignUp extends Component {
             name="email"
             value={this.state.email}
             onChange={this.handleInputChange}
+          />
+
+          <label htmlFor="profile-picture-input">Profile Picture</label>
+          <input
+            id="profile-picture-input"
+            type="file"
+            name="picture"
+            onChange={this.handleFileInputChange}
           />
 
           <label htmlFor="password-input">Password</label>

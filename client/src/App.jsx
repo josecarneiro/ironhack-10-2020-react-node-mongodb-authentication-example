@@ -38,7 +38,11 @@ class App extends Component {
           <Link to="/">Home</Link>
           {(this.state.user && (
             <>
-              <span>Welcome {this.state.user.name}</span>
+              <img
+                src={this.state.user.profilePicture}
+                alt={this.state.user.name}
+              />
+              <span>{this.state.user.name}</span>
               <Link to="/private">Private</Link>
               <button onClick={this.handleSignOut}>Sign Out</button>
             </>
